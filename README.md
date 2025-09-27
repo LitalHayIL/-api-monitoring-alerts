@@ -2,32 +2,32 @@
 ````markdown
 # 📊 Make (Integromat) VS Code: API Monitoring Demonstration
 
-פרויקט זה מציג שני פתרונות מקבילים (Python ו-React) המבצעים פעולה זהה לזו של תרחיש המוניטורינג שבנוי ב-Make: קריאת נתוני מזג אוויר מ-[Open-Meteo](https://open-meteo.com/).
+This project demonstrates two parallel solutions (Python and React) performing the same monitoring task as a Make (Integromat) scenario: retrieving weather data from [Open-Meteo](https://open-meteo.com/).
 
-המטרה היא להדגים את ההבדלים בגישה, במורכבות ובזמן הפיתוח בין אוטומציה No-Code (Make) לבין פתרון מבוסס קוד, כחלק מהצגת נושא למפתחים.
-
----
-
-## 📁 מבנה הפרויקט
-
-- **monitor_script.py** – סקריפט Python המדמה משימת מוניטורינג בצד שרת:  
-  מבצע קריאת API, בודק סטטוס וטמפרטורה, ומדפיס התראה קריטית אם הטמפרטורה עולה מעל ‎35 °C.
-- **WeatherDisplay.jsx** – קומפוננטת React שמבצעת קריאות API חוזרות (Polling), מציגה את הנתונים בפרונט-אנד, ומשנה צבע חיווי (ירוק/אדום) לפי הסטטוס.
+The goal is to highlight the differences in approach, complexity, and development time between a No-Code automation workflow (Make) and a code-based solution, for presentation to developers.
 
 ---
 
-## 🚀 התקנה והפעלה
+## 📁 Project Structure
 
-### 1️⃣ הרצת סקריפט ה-Python (Backend Logic)
+- **monitor_script.py** – Python script simulating a server-side monitoring job:  
+  Makes an API call, checks status and temperature, and prints a critical alert if the temperature exceeds 35 °C.
+- **WeatherDisplay.jsx** – React component that repeatedly polls the API, displays the results on the frontend, and changes the status indicator color (green/red) based on the reading.
 
-יש להתקין את ספריית `requests` ולאחר מכן להריץ את הסקריפט:
+---
+
+## 🚀 Setup and Execution
+
+### 1️⃣ Running the Python Script (Backend Logic)
+
+Install the required dependency and run the script:
 
 ```bash
 pip install requests
 python monitor_script.py
 ````
 
-פלט צפוי לדוגמה:
+Example output:
 
 ```
 Executing API check for location: (32.08, 34.78)...
@@ -35,31 +35,29 @@ Current Temperature: 29.3°C
 Status OK: Temperature is within acceptable limits.
 ```
 
-אם הטמפרטורה עולה על 35 °C תודפס התראה קריטית.
+If the temperature is above 35 °C, a critical alert is printed.
 
-### 2️⃣ קומפוננטת React (Frontend Display)
+### 2️⃣ React Component (Frontend Display)
 
-הקומפוננטה **WeatherDisplay.jsx** מבצעת קריאות נתונים ומעדכנת את הממשק כל 15 דקות.
-
----
-
-## 🛠️ נקודות השוואה עיקריות מול Make
-
-| תכונה                  | פתרון Make (No-Code)                       | פתרון קוד (Python + React)                      |
-| ---------------------- | ------------------------------------------ | ----------------------------------------------- |
-| **ניהול כשל / התראות** | מודולים מובנים (GitHub/Slack) אוטומטיים    | דורש כתיבת לוגיקה מלאה מול GitHub ו-Slack       |
-| **פרסינג ואימות**      | Parse JSON גרפי – ללא קוד                  | `response.json()` ובדיקות מבנה ידניות           |
-| **תזמון**              | מתזמן גלובלי ב-Make                        | Cron Job / Cloud Scheduler או setInterval מורכב |
-| **עלות והיקף**         | חישוב לפי מספר פעולות – מתאים להיקף בינוני | עלות נמוכה בהיקף גבוה, נדרשת תשתית שרתית        |
-| **תחזוקה**             | קריא ויזואלית, קל לשינוי                   | דורש ידע בשפות התכנות וספריות צד ג׳             |
+The **WeatherDisplay.jsx** component performs data retrieval and updates the UI every 15 minutes.
 
 ---
 
-## 💡 מסקנה להצגה
+## 🛠️ Key Comparison Points vs. Make
 
-פתרון ה-No-Code של Make מאפשר בנייה מהירה של מערכת מוניטורינג מתוזמנת ומשולבת (Slack, GitHub) **בלי כתיבת שורת קוד אחת**.
-כך ניתן לשחרר את המפתחים להתמקד בלוגיקת המוצר עצמה במקום בחיבורי API ואוטומציות פנימיות.
+| Feature                         | Make (No-Code)                                            | Code Solution (Python + React)                                |
+| ------------------------------- | --------------------------------------------------------- | ------------------------------------------------------------- |
+| **Failure Handling / Alerting** | Built-in GitHub/Slack modules – automatic                 | Requires custom logic for GitHub and Slack APIs               |
+| **Parsing & Validation**        | Visual Parse JSON module – paste a sample schema, no code | Manual `response.json()` handling and structure checks        |
+| **Scheduling**                  | Global scheduler (e.g., every 15 min)                     | External Cron job / Cloud Scheduler or complex `setInterval`  |
+| **Cost & Scale**                | Priced per operation; ideal for medium scale              | Lower cost at high scale, but needs infrastructure            |
+| **Maintenance**                 | Visual and easy to modify                                 | Requires knowledge of Python, JavaScript/React, and libraries |
 
-```
+---
+
+## 💡 Presentation Takeaway
+
+The Make No-Code solution enables building an automated, scheduled, and integrated monitoring system (Slack, GitHub) **within minutes—without writing a single line of code**.
+This allows developers to focus on core product logic instead of wiring APIs and internal automation.
 
 ```
